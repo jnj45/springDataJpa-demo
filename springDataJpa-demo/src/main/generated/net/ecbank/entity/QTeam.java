@@ -22,23 +22,23 @@ public class QTeam extends EntityPathBase<Team> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    //inherited
-    public final StringPath createBy = _super.createBy;
-
-    //inherited
-    public final DateTimePath<java.time.LocalDateTime> createDate = _super.createDate;
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
-    public final StringPath lastModifiedBy = _super.lastModifiedBy;
+    public final StringPath insDt = _super.insDt;
 
     //inherited
-    public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
+    public final StringPath insId = _super.insId;
 
     public final ListPath<Member, QMember> members = this.<Member, QMember>createList("members", Member.class, QMember.class, PathInits.DIRECT2);
 
     public final StringPath name = createString("name");
+
+    //inherited
+    public final StringPath updDt = _super.updDt;
+
+    //inherited
+    public final StringPath updId = _super.updId;
 
     public QTeam(String variable) {
         super(Team.class, forVariable(variable));

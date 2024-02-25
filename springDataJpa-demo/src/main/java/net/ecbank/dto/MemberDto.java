@@ -1,11 +1,13 @@
 package net.ecbank.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import net.ecbank.entity.Member;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class MemberDto {
 
 	private Long id;

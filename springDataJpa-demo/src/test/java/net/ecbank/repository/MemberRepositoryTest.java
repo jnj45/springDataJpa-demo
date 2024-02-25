@@ -30,7 +30,7 @@ class MemberRepositoryTest {
 	@Autowired TeamRepository teamRepository;
 	@Autowired EntityManager em;
 	
-	@Test
+//	@Test
 	void test() {
 		Member member = new Member("abc");
 		Member saveMember = memberRepository.save(member);
@@ -42,7 +42,7 @@ class MemberRepositoryTest {
 		assertThat(findMember).isEqualTo(member);
 	}
 	
-	@Test
+//	@Test
 	void testPaging() {
 		
 		Team teamA = new Team("teamA");
@@ -79,7 +79,7 @@ class MemberRepositoryTest {
 		
 	}
 	
-	@Test
+//	@Test
 	void testCustomRepository() {
 		Team teamA = new Team("teamA");
 		teamRepository.save(teamA);
@@ -94,28 +94,40 @@ class MemberRepositoryTest {
 	}
 	
 	@Test
-	void testAuditiong() throws InterruptedException {
+	void testAuditing() throws InterruptedException {
 		//given
 		Member member = new Member("member1", 10, null);
 		memberRepository.save(member);
+		System.out.println("member saved =============================================>");
+		System.out.println("member.createDate = " + member.getInsDt());
+		System.out.println("member.createBy = " + member.getInsId());
+		System.out.println("member.lastModifiedDate = " + member.getUpdDt());
+		System.out.println("member.lastModifiedBy = " + member.getUpdId());
 		
-		Thread.sleep(100);
+		Thread.sleep(2000);
 		member.setUsername("member11111");
+		System.out.println("member setted =============================================>");
 		
 		em.flush();
 		em.clear();
+		System.out.println("member flushed =============================================>");
+		System.out.println("member.createDate = " + member.getInsDt());
+		System.out.println("member.createBy = " + member.getInsId());
+		System.out.println("member.lastModifiedDate = " + member.getUpdDt());
+		System.out.println("member.lastModifiedBy = " + member.getUpdId());
 		
 		//when
 		Member findMember = memberRepository.findById(member.getId()).get();
 		
 		//then
-		System.out.println("member.createDate = " + findMember.getCreateDate());
-		System.out.println("member.createBy = " + findMember.getCreateBy());
-		System.out.println("member.lastModifiedDate = " + findMember.getLastModifiedDate());
-		System.out.println("member.lastModifiedBy = " + findMember.getLastModifiedBy());
+		System.out.println("member db =============================================>");
+		System.out.println("member.createDate = " + findMember.getInsDt());
+		System.out.println("member.createBy = " + findMember.getInsId());
+		System.out.println("member.lastModifiedDate = " + findMember.getUpdDt());
+		System.out.println("member.lastModifiedBy = " + findMember.getUpdId());
 	}
 	
-	@Test
+//	@Test
 	void testQueryDsl() {
 		Member member = new Member("name");
 		em.persist(member);

@@ -25,8 +25,8 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
 	@Query("select m from Member m where m.username = :username and m.age = :age")
 	List<Member> findMember(@Param("username") String username, @Param("age") int age);
 	
-	@Query("select username from Member m")
-	List<String> findUsernameList();
+//	@Query("select username from Member m")
+//	List<String> findUsernameList();
 	
 	@Query("select new net.ecbank.dto.MemberDto(m.id, m.username, t.name) from Member m join m.team t")
 	List<MemberDto> findMemberDto();
@@ -77,6 +77,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
 //	@QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
 //	List<Member> findReadOnlyByUsername(String username);
 	
-	@Lock(LockModeType.PESSIMISTIC_WRITE)
-	List<Member> findLockByUsername(String username);
+//	@Lock(LockModeType.PESSIMISTIC_WRITE)
+//	List<Member> findLockByUsername(String username);
 }

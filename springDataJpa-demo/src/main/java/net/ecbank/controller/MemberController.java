@@ -6,10 +6,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import net.ecbank.annotation.ServiceInfo;
 import net.ecbank.dto.MemberDto;
 import net.ecbank.entity.Member;
 import net.ecbank.repository.MemberRepository;
@@ -20,6 +22,7 @@ public class MemberController {
 
 	private final MemberRepository memberRepository;
 	
+	@ServiceInfo(name = "회원조회3")
 	@GetMapping("/member/{id}")
 	public String findMember(@PathVariable("id") Long id) {
 		Member member = memberRepository.findById(id).orElseGet(() -> new Member("",0,null));
@@ -41,9 +44,9 @@ public class MemberController {
 	}
 	
 	
-	@PostConstruct
-	public void init() {
-		for(int i = 0; i < 100; i++)
-		memberRepository.save(new Member("member"+i, i, null));
-	}
+//	@PostConstruct
+//	public void init() {
+//		for(int i = 0; i < 100; i++)
+//		memberRepository.save(new Member("member"+i, i, null));
+//	}
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Test Error Page!</title>
+</head>
+<body>
+	5XX 에러 페이지
+    <div class="errorPage">
+        <span class="errorHead">5XX</span><br />
+        <p th:text="${'path: ' + path}"></p>
+        <p th:text="${'status: ' + status}"></p>
+        <p th:text="${'timestamp: ' + timestamp}"></p>
+        <p th:text="${'error: ' + error}"></p>
+        <p th:text="${'errors: ' + errors}"></p>
+        <p th:text="${'exception: ' + exception}"></p>
+        <p th:text="${'message: ' + message}"></p>
+        <p th:text="${'trace: ' + trace}"></p>
+    </div>
+</body>
+</html>

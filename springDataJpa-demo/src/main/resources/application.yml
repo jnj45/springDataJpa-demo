@@ -1,4 +1,23 @@
+server:
+  error:
+    include-binding-errors: always #never, always, on_param
+    include-exception: true 
+    include-message: always
+    include-stacktrace: never
+    path: /error
+    whitelabel:
+      enabled: true
 spring:
+  mvc:
+    problemdetails:
+      enabled: true # ResponseStatusException (ErrorResponse를 구현한 Exception)에 대해 ProblemDetail 로 에러 응답처리.
+                     # 그래서, 브라우저 호출 시 BasicErrorController에 의해 에러페이지로 이동되던 것도 problemDetail json으로 응답처리되어버림. 
+  thymeleaf:
+    prefix: classpath:/templates/ #thymeleaf 참조 경로
+    suffix: .html
+    encoding: UTF-8
+    cache: false #thymeleaf에 대한 캐시를 남기지 않는다. cache=false 설정(운영시는 true, 개발시에 false)
+    check-template-location: true #templates 디렉토리에 파일이 있는지 없는지 체크, 없으면 에러를 발생시킨다.
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
     username: sa
@@ -7,7 +26,7 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         #show_sql: true
@@ -21,7 +40,18 @@ spring:
       pageable:
         default-page-size: 10
         #max-page-size: 2000
+  messages:
+    basename: messages
+    encoding: UTF-8
+    use-code-as-default-message: false #true로 하면 ResponseEntityExceptionHandler에서 기본으로 처리하는 Excepiton에 대한 Problme title, detail을 메세지로 등록해줘야함.
 logging:
+  #file:
+    #logback-spring.xml 에서 logging.file.path를 참조하지만 spring에서 logback-spring.xml을 먼저 읽고 application.yml을 나중에 일기 때문에, LOG_PATH_Is_UNDEFINED 폴더에 생성 된다
+    #따라서, logging.file.path는 server에 -Dlogging.file.path를 추가하는 방식으로 처리 해야 한다.
+    #path: C:/ecpro/ecpro_storage/logs 
+    #logback-spring 가 application.properties보다 먼저 로딩 되기 때문에 발생하는 문제를 해결 하기 위함
+  #config: classpath:logback-spring.xml 
   level:
     org.hibernate.SQL: debug
-    org.hibernate.type: trace
+    org.hibernate.type: info
+    net.ecbank: debug
